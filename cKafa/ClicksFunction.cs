@@ -21,13 +21,18 @@ namespace cKafa
     {
         [FunctionName("AddClicks")]
         public static async Task<IActionResult> AddClicks(
-       [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "AddClicks")] HttpRequest req
+       [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "AddClicks({time1},{time2},{misclicks1},{misclicks2},{window_width})")] HttpRequest req
+            , int time1
+            , int time2
+            , int? misclicks1
+            , int? misclicks2
+            , int? window_width
       )
         {
             try
             {
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-                Clicks data = JsonConvert.DeserializeObject<Clicks>(requestBody);
+                //Clicks data = JsonConvert.DeserializeObject<Clicks>(requestBody);
 
 
                 ClicksDataContext db = ClicksDataContext.GetCurrent();
@@ -36,11 +41,11 @@ namespace cKafa
 
                 c.uid = Guid.NewGuid();
                 c.create_date = DateTime.Now;
-                c.time1 = data.time1;
-                c.time2 = data.time2;
-                c.misclicks1 = data.misclicks1 ?? 0;
-                c.misclicks2 = data.misclicks2 ?? 0;
-                c.window_width = data.window_width ?? 0;
+                c.time1 = time1;
+                c.time2 = time2;
+                c.misclicks1 = misclicks1 ?? 0;
+                c.misclicks2 = misclicks2 ?? 0;
+                c.window_width = window_width ?? 0;
                 db.Clicks.Add(c);
 
                 await db.SaveChangesAsync();
