@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  SolutionPath: '**.sln'
+  SolutionPath: '*/**.sln'
 
 stages:  
 - stage: Build
