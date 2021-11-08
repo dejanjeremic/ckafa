@@ -15,8 +15,8 @@ namespace cKafa.Model
         [Key]
         public Guid uid { get; set; }
         public DateTime create_date { get; set; }
-        public DateTime time1 { get; set; }
-        public DateTime time2 { get; set; }
+        public int time1 { get; set; }
+        public int time2 { get; set; }
         public int? misclicks1 { get; set; }
         public int? misclicks2 { get; set; }
         public int? window_width { get; set; }
